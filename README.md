@@ -1,5 +1,5 @@
 # Sneaky Peak Till 03-09-2020
-![Sample Img](https://github.com/Kabi4/BurgerBuilder/blob/master/Burger.png?raw=true "BurgerBuilder")
+![Sample Img](https://github.com/Kabi4/BurgerBuilder/blob/master/BurgerMaker.png?raw=true "BurgerBuilder")
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
