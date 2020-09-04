@@ -23,7 +23,7 @@ const BurgerIndegrient = (props) =>{
             indegrient=<div className={classes.Cheese}></div>;
             break;
         case("salad"):
-            indegrient=<div className={classes.Meat}></div>;
+            indegrient=<div className={classes.Salad}></div>;
             break;
         case("bacon"):
             indegrient=<div className={classes.Bacon}></div>;
