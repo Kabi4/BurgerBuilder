@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import Modal from './../../Components/UI/Modal/Modal';
 import BuildControls from './../../Components/Burger/BuildControls/BuildControls';
 import Burger from './../../Components/Burger/Burger';
+import Spinner from './../../Components/Spinner/Spinner';
+//import axios from 'axios';
 
 import Aux from './../../High Order Components/Auxillary';
 
@@ -22,7 +24,8 @@ class BurgerBuilder extends Component{
             meat:0
         },
         totalPrice: 1,
-        purchasing: false
+        purchasing: false,
+        buying: false
     };
 
     addIndegridentsHandler =(type)=> {
@@ -52,6 +55,28 @@ class BurgerBuilder extends Component{
         this.setState({purchasing: !(currentCondition)});
     };
 
+    togglebuying = () =>{
+        const currentCondition = this.state.buying;
+        this.setState({buying: !(currentCondition)});
+    };
+
+    buingHandler = () =>{
+        const getIndegrient = [];
+        for(let i in this.state.indegridents){
+            getIndegrient.push(encodeURIComponent(i)+'='+encodeURIComponent(this.state.indegridents[i]));
+        };
+        getIndegrient.push('price='+this.state.totalPrice);
+        const getIndegrientString = getIndegrient.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?'+getIndegrientString
+        });
+    };
+
+    componentDidMount(){
+        //console.log(this.props)
+    };
+
     render(){
         const disabledKeys = {
             ...this.state.indegridents
@@ -59,14 +84,20 @@ class BurgerBuilder extends Component{
         for(let key in disabledKeys){
             disabledKeys[key] = disabledKeys[key]<=0;
         }
+        let Modals = <Modal 
+            buyingHandler = {this.buingHandler}
+            indegridents={this.state.indegridents}
+            purchasingCondition={this.state.purchasing}
+            buyingCondition = {this.state.buying}
+            togglePurchasing={this.purchasingHandler}
+            price = {(this.state.totalPrice).toFixed(2)}
+            />;
+        if(this.state.buying){
+            Modals = <Modal buyingCondition = {this.state.buying}><Spinner/></Modal>
+        }
         return(
             <Aux>
-                <Modal 
-                    indegridents={this.state.indegridents}
-                    purchasingCondition={this.state.purchasing}
-                    togglePurchasing={this.purchasingHandler}
-                    price = {(this.state.totalPrice).toFixed(2)}
-                    />
+                {Modals}
                 <Burger indegridents={this.state.indegridents}/>
                 <BuildControls
                     price = {(this.state.totalPrice).toFixed(2)}
@@ -82,3 +113,12 @@ class BurgerBuilder extends Component{
 }
 
 export default BurgerBuilder;
+
+
+
+
+
+// buingHandler = () =>{
+//     this.togglebuying();
+//     
+
