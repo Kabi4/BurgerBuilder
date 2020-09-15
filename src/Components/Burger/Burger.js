@@ -8,7 +8,7 @@ import BurgerIndegrient from './Burger Indegrient/BurgerIndegrient';
 //import BuildControls from './BuildControls/BuildControls';
 
 const burger = (props) =>{
-    // console.log(props.indegridents)
+    //console.log(props.indegridents)
     let burgerMaterial = Object.keys(props.indegridents).map(igkeys=>{
         return ([...Array((props.indegridents[igkeys]))].map((_,i)=>{return <BurgerIndegrient key={igkeys+i} type={igkeys}/>}))
     });

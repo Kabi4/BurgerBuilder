@@ -12,7 +12,7 @@ const CheckoutSummary = (props) =>{
             <h1>
                 Hope It Taste Well.
             </h1>
-            <div style={{height:"300px",width: "300px",margin: 'auto'}}>
+            <div style={{height:"min-content",width: "min-content",margin: 'auto'}}>
                 <Burger indegridents={props.indegridents}/>
             </div>
             <Button type="Danger" click={props.cancelPurchaseHandler}>CANCEL</Button>
