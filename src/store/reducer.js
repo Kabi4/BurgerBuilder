@@ -3,7 +3,7 @@ import * as actions from './actionTypes';
 
 const INDEGRIDENTS__PRICE = {
     bacon:0.7,
-    salad:0.5,
+    salad:0.5, 
     cheese:0.4,
     meat:1.2
 }
