@@ -7,7 +7,7 @@ import Spinner from './../../Components/Spinner/Spinner';
 //import axios from 'axios';
 import {connect} from 'react-redux';
 
-import * as actions from './../../store/actionTypes';
+import * as actionsCreators from '../../store/actions/index';
 
 import Aux from './../../High Order Components/Auxillary';
 
@@ -28,15 +28,8 @@ class BurgerBuilder extends Component{
     };
 
     buingHandler = () =>{
-        const getIndegrient = [];
-        for(let i in this.props.ing){
-            getIndegrient.push(encodeURIComponent(i)+'='+encodeURIComponent(this.props.ing[i]));
-        };
-        getIndegrient.push('price='+this.props.price);
-        const getIndegrientString = getIndegrient.join('&');
         this.props.history.push({
-            pathname: '/checkout',
-            search: '?'+getIndegrientString
+            pathname: '/checkout'
         });
     };
 
@@ -81,15 +74,15 @@ class BurgerBuilder extends Component{
 
 const mapStateToProps = (state)=>{
     return{
-        ing: state.indegridents,
-        price: state.totalPrice
+        ing: state.burgerBuilder.indegridents,
+        price: state.burgerBuilder.totalPrice
     }
 }
 
 const mapDispatchToProps = (dispatch)=>{
     return{
-        addIndegridents: (ingName)=>{dispatch({type: actions.ADD__INDEGRIDENTS,INGNAME: ingName})},
-        removeIndegridents: (ingName)=>{dispatch({type: actions.REMOVE__INDEGRIDENTS,INGNAME: ingName})}
+        addIndegridents: (ingName)=>{dispatch(actionsCreators.addIndegridents(ingName))},
+        removeIndegridents: (ingName)=>{dispatch(actionsCreators.removeIndegridents(ingName))}
     }
 }
 
@@ -175,3 +168,9 @@ export default connect(mapStateToProps,mapDispatchToProps)(BurgerBuilder);
 //     cheese:0.4,
 //     meat:1.2
 // }
+// const getIndegrient = [];
+//         for(let i in this.props.ing){
+//             getIndegrient.push(encodeURIComponent(i)+'='+encodeURIComponent(this.props.ing[i]));
+//         };
+//         getIndegrient.push('price='+this.props.price);
+//         const getIndegrientString = getIndegrient.join('&');

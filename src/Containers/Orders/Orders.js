@@ -1,39 +1,24 @@
 import React,{Component} from 'react';
 import Order from '../../Components/Checkout Components/Order/Order';
 
-import axios from 'axios';
+import { connect } from 'react-redux';
+import * as actionCreators from './../../store/actions/index';
 import Spinner from '../../Components/Spinner/Spinner';
 
 class Orders extends Component{
-    state = {
-        orders: [],
-        loading: true
-    }
 
     componentDidMount(){
-        axios.get('https://my-burger-builder-8fe87.firebaseio.com/order.json')
-        .then((Response)=>{
-            this.setState({loading:false})
-            let fetchOrders = [];
-            for(let key in Response.data){
-                fetchOrders.push({
-                    ...Response.data[key],
-                    id: key
-                });
-            }
-            this.setState({orders: fetchOrders});
-        })
-        .catch((err)=>{
-            this.setState({loading:false})
-            alert("Can't Retrive The data Please reload.");
-        })
+        this.props.fetchOrder();
     }
     render(){
         let order = <Spinner/>;
-        if(this.state.loading===false){
-            order = this.state.orders.map((ele,i)=>{
+        if(this.props.loading===false){
+            order = this.props.orders.map((ele,i)=>{
                 return <Order key={ele.id} ind={ele.indegridents} price={ele.totalPrice}/>;
             });
+        }
+        if(this.props.err){
+            order = <h1>Failed To Fetch Your Orders</h1>
         }
         return(
             <div style={{padding: "50px 0 0 0"}}>
@@ -43,4 +28,18 @@ class Orders extends Component{
     }
 }
 
-export default Orders; 
+const mapStateToProps = state=>{
+    return{
+        orders: state.fetchOrder.orders,
+        loading: state.fetchOrder.loading,
+        err: state.fetchOrder.err
+    };
+}
+
+const mapDispatchToProps = dispatch=>{
+    return{
+        fetchOrder: ()=>{dispatch(actionCreators.FETCHING__ORDER())}
+    };
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Orders); 

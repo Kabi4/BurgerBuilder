@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import OrderSummary from './../../Burger/OrderSummary/OrderSummary'; 
+import OrderSummary from './../../Burger/OrderSummary/OrderSummary';
 import Aux from './../../../High Order Components/Auxillary';
 import Backdrop from './../Backdrop/Backdrop';
 

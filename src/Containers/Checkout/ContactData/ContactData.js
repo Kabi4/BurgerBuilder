@@ -3,9 +3,12 @@ import Button from '../../../Components/Button/Button';
 
 import classes from './ContactData.css';
 
-import axios from 'axios';
 import Spinner from '../../../Components/Spinner/Spinner';
 import Input from '../../../Components/UI/Input/Input';
+
+import { connect } from 'react-redux';
+
+import * as actionCreator from './../../../store/actions/index';
 
 class ContactData extends Component{
     state = {
@@ -89,13 +92,12 @@ class ContactData extends Component{
                 elementValue: "fastest"
             }
         },
-        buying: false,
         validationCounts: -1,
         validCounts: 0
     }
 
     togglebuying = () =>{
-        const currentCondition = this.state.buying;
+        const currentCondition = this.props.buying;
         this.setState({buying: !(currentCondition)});
     };
 
@@ -124,15 +126,7 @@ class ContactData extends Component{
                 ...details
             } 
         }
-        axios.post('https://my-burger-builder-8fe87.firebaseio.com/order.json',order)
-        .then((Response)=>{
-            this.togglebuying();
-            this.props.history.push('/');
-        })
-        .catch(err=>{
-            this.togglebuying();
-            alert("Order Not Placed Try Again!")
-        })
+        this.props.placeOrder(order);
     }
     
     inputChangeHandler = (e,id) =>{
@@ -194,8 +188,11 @@ class ContactData extends Component{
             })}
             <Button type='Success' isdisable={(this.state.validCounts!==this.state.validationCounts)} click={(e)=>{this.placeOrderHandler(e)}}>ORDER</Button>
         </form>);
-        if(this.state.buying){
+        if(this.props.buying){
             form = (<Spinner/>);
+        }
+        if(this.props.err){
+            form = (<h4>Failed To Place Order Please Reload!</h4>)
         }
         return(
             <div className={classes.ContactData}>
@@ -206,4 +203,17 @@ class ContactData extends Component{
     }
 }
 
-export default ContactData;
+const mapStateToProps = state =>{
+    return {
+        buying: state.order.buying,
+        err: state.order.err
+    }
+}
+
+const mapDispatchToProps = dispatch=>{
+    return{
+        placeOrder: (order)=>{dispatch(actionCreator.PLACING_ORDER(order))}
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(ContactData);
