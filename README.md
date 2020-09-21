@@ -32,7 +32,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
   - [Adding Assets Outside of the Module System](#adding-assets-outside-of-the-module-system)
   - [When to Use the `public` Folder](#when-to-use-the-public-folder)
 - [Using Global Variables](#using-global-variables)  
-- [Adding Bootstrap](#adding-bootstrap)
+- [Adding Bootstrap](#adding-bootstrap) 
   - [Using a Custom Theme](#using-a-custom-theme)
 - [Adding Flow](#adding-flow)
 - [Adding a Router](#adding-a-router)
