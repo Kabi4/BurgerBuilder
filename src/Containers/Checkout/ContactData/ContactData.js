@@ -173,7 +173,7 @@ class ContactData extends Component{
         }
         this.setState({validationCounts: required});
     };
-
+ 
     render(){
         const allInputElements = [];
         for(let key in this.state.formDetails){

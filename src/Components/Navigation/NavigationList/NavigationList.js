@@ -9,6 +9,7 @@ const NavigationList = (props) => {
         <ul className={classes.NavigationList}>
             <NavigationItem link='/' exact >Burger Builder</NavigationItem>
             <NavigationItem link='/orders'>My Orders</NavigationItem>
+            <NavigationItem link='/auths'>Login/SignUp</NavigationItem>
         </ul>
     );
 }
