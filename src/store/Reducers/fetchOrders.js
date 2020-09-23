@@ -14,7 +14,8 @@ const initialState = {
                 orders: [
                     ...action.payload.orders
                 ],
-                loading:false 
+                loading:false,
+                err: false
             };
         case actionsTypes.FETCH_ORDER_FAILED:
             return{

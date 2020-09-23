@@ -7,7 +7,7 @@ import Button from '../../Button/Button';
 
 const CheckoutSummary = (props) =>{
     //console.log(props)
-    return(
+    return( 
         <div className={classes.CheckoutSummary}>
             <h1>
                 Hope It Taste Well.
@@ -16,7 +16,7 @@ const CheckoutSummary = (props) =>{
                 <Burger indegridents={props.indegridents}/>
             </div>
             <Button type="Danger" click={props.cancelPurchaseHandler}>CANCEL</Button>
-            <Button type="Success" click={props.continuePurchaseHandler}>CONFIRM</Button>
+            <Button isdisable={props.disbaleConfirm} type="Success" click={props.continuePurchaseHandler}>CONFIRM</Button>
         </div>
     );
 }

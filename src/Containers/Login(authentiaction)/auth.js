@@ -4,6 +4,8 @@ import Spinner from '../../Components/Spinner/Spinner';
 import Input from '../../Components/UI/Input/Input';
 import { connect } from 'react-redux';
 
+import { Redirect } from 'react-router-dom';
+
 import * as actionCreators from './../../store/actions/index';
 
 import classes from './auth.css'; 
@@ -106,6 +108,7 @@ class Auth extends Component{
         if(this.props.err)errorMessage = <Button isdisable={true} type="Danger">{(this.props.err.message).replaceAll("_"," ")}</Button>;
         return(
             <div className={classes.Auth}>
+                {(this.props.price>1.1 && this.props.token)  ? <Redirect to="/checkout"/>:this.props.token?<Redirect to="/"/>:null}
                 <h4>{title}</h4>
                 {errorMessage}
                 {form}
@@ -118,8 +121,8 @@ const mapStateToProps = (state)=>{
     return{
         loading: state.auth.loading,
         err: state.auth.err,
-        userID: state.auth.userID,
-        token: state.auth.token
+        token: state.auth.token,
+        price: state.burgerBuilder.totalPrice
     }
 }
 

@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 
 import classes from './Toolbar.css';
 
+import {connect} from 'react-redux';
+
 import Logo from './../../Logo/Logo';
 import NavigationList from './../NavigationList/NavigationList';
 import Sidebar from './../../Sidebar/Sidebar';
 
-class Toolbar extends Component{
+class Toolbar extends Component{ 
     state = {
         showSideBar: false
     };
@@ -24,10 +26,17 @@ class Toolbar extends Component{
                     <Logo />
                 </div>
                 <nav className={classes.DisplayOnlyDesktop}>
-                    <NavigationList/>
+                    <NavigationList auth={this.props.auth}/>
                 </nav>
             </div>
         )
     }
 }
-export default Toolbar;
+
+const mapStateToProps = (state)=>{
+    return {
+        auth: state.auth.token
+    }
+}
+
+export default connect(mapStateToProps)(Toolbar);

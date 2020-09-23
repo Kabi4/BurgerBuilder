@@ -6,7 +6,7 @@ import Aux from './../../High Order Components/Auxillary';
 
 import Toolbar from './../Navigation/Toolbar/Toolbar';
 
-const Layout = (props) =>{
+const Layout = (props) =>{ 
     return (
         <Aux>
             <Toolbar/>

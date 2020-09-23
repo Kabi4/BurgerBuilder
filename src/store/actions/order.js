@@ -21,11 +21,11 @@ export const PLACING_ORDER_STARTED = () =>{
     }
 }
 
-export const PLACING_ORDER = (order) =>{
+export const PLACING_ORDER = (order,token) =>{
     return dispatch=>{
         dispatch(actionCreator.resetIndegridents());
         dispatch(PLACING_ORDER_STARTED());
-        axios.post('https://my-burger-builder-8fe87.firebaseio.com/order.json',order)
+        axios.post('https://my-burger-builder-8fe87.firebaseio.com/order.json?auth='+token,order)
         .then((Response)=>{
             dispatch(PLACE_ORDER_SUCESS());
         })

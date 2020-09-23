@@ -12,7 +12,8 @@ const orderReducer = (state=initialState,action)=>{
             return{
                 ...state,
                 buying: false,
-                succesfullyBuied: true
+                succesfullyBuied: true,
+                err: false
             };
         case actionType.PLACE_ORDER_REJECTED:
             return{

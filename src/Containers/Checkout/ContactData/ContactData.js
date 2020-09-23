@@ -113,10 +113,12 @@ class ContactData extends Component{
         };
         let totalPrice = this.props.totalPrice+"$";
         let material = {
-            ...this.props.indegridents
+            ...this.props.indegridents 
         };
         let id = uniqid;
+        let userid = this.props.userid;
         const order = {
+            userid: userid,
             id: id,
             indegridents: {
                 ...material
@@ -126,7 +128,7 @@ class ContactData extends Component{
                 ...details
             } 
         }
-        this.props.placeOrder(order);
+        this.props.placeOrder(order,this.props.token);
     }
     
     inputChangeHandler = (e,id) =>{
@@ -206,13 +208,14 @@ class ContactData extends Component{
 const mapStateToProps = state =>{
     return {
         buying: state.order.buying,
-        err: state.order.err
+        err: state.order.err,
+        token: state.auth.token
     }
 }
 
 const mapDispatchToProps = dispatch=>{
     return{
-        placeOrder: (order)=>{dispatch(actionCreator.PLACING_ORDER(order))}
+        placeOrder: (order,token)=>{dispatch(actionCreator.PLACING_ORDER(order,token))}
     }
 }
 

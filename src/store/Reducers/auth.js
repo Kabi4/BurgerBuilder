@@ -9,7 +9,7 @@ const intialState = {
 
 const auth= (state=intialState,action)=>{
     switch(action.type){
-        case actionTypes.AUTH__STARTED:
+        case actionTypes.AUTH__STARTED: 
             return {
                 ...state,
                 loading: true
@@ -26,6 +26,18 @@ const auth= (state=intialState,action)=>{
                 ...state,
                 err: action.err,
                 loading: false
+            };
+        case actionTypes.AUTH__LOGOUT:
+            return{
+                ...state,
+                token: null,
+                userID: null
+            };
+        case actionTypes.AUTO__AUTH:
+            return{
+                ...state,
+                token: action.token,
+                userID: action.userID
             }
         default:
             return state;

@@ -8,13 +8,11 @@ import { connect } from 'react-redux';
 
 class Checkout extends Component{
     state = {
-        indegridents: {
-            bacon:0,
-            salad:0,
-            cheese:0,
-            meat:0
-        },
-        totalPrice: 0
+        disableConfirm: false
+    }
+
+    toogleConfirm = ()=>{
+        this.setState({disableConfirm: true})
     }
 
     cancelPurchaseHandler=()=>{
@@ -22,12 +20,13 @@ class Checkout extends Component{
     };
 
     continuePurchaseHandler=()=>{
+        this.toogleConfirm();
         this.props.history.replace('./checkout/contact-data');
     } 
     render(){
         let summary = <div key="summary" >
-        <CheckoutSummary indegridents={this.props.ing} cancelPurchaseHandler={this.cancelPurchaseHandler} continuePurchaseHandler={this.continuePurchaseHandler}/>
-        <Route path={this.props.match.path+'/contact-data'} render={()=>(<ContactData indegridents={this.props.ing} totalPrice={this.props.price} {...this.props}/> )}/>
+        <CheckoutSummary disbaleConfirm={this.state.disableConfirm} indegridents={this.props.ing} cancelPurchaseHandler={this.cancelPurchaseHandler} continuePurchaseHandler={this.continuePurchaseHandler}/>
+        <Route path={this.props.match.path+'/contact-data'} render={()=>(<ContactData userid={this.props.userID} indegridents={this.props.ing} totalPrice={this.props.price} {...this.props}/> )}/>
     </div>;
         if(this.props.price<2.02||this.props.buiedSucessfully){
             summary = <Redirect  key="summary" to="/"/>;
@@ -42,7 +41,8 @@ const mapStateToProps = (state)=>{
     return{
         ing: state.burgerBuilder.indegridents,
         price: state.burgerBuilder.totalPrice,
-        buiedSucessfully: state.order.succesfullyBuied
+        buiedSucessfully: state.order.succesfullyBuied,
+        userID: state.auth.userID
     }
 }
 

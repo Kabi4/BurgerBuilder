@@ -12,6 +12,8 @@ export {
     FETCHING__ORDER
 } from './fetchOrders';
 
-export {
-    AUTH
+export { 
+    AUTH,
+    LOG_OUT,
+    auto__authentication
 } from './auth';

@@ -18,13 +18,16 @@ class BurgerBuilder extends Component{
     };
 
     purchasingHandler = ()=>{
-        const currentCondition = this.state.purchasing;
-        this.setState({purchasing: !(currentCondition)});
+        if(this.props.authen){const currentCondition = this.state.purchasing;
+        this.setState({purchasing: !(currentCondition)});}else{   this.props.history.push({
+            pathname: '/auths'
+        });
+    }
     };
 
     togglebuying = () =>{
-        const currentCondition = this.state.buying;
-        this.setState({buying: !(currentCondition)});
+            const currentCondition = this.state.buying;
+            this.setState({buying: !(currentCondition)});
     };
 
     buingHandler = () =>{
@@ -75,7 +78,8 @@ class BurgerBuilder extends Component{
 const mapStateToProps = (state)=>{
     return{
         ing: state.burgerBuilder.indegridents,
-        price: state.burgerBuilder.totalPrice
+        price: state.burgerBuilder.totalPrice,
+        authen: state.auth.token
     }
 }
 

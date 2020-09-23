@@ -8,7 +8,7 @@ import Spinner from '../../Components/Spinner/Spinner';
 class Orders extends Component{
 
     componentDidMount(){
-        this.props.fetchOrder();
+        this.props.fetchOrder(this.props.token,this.props.userid);
     }
     render(){
         let order = <Spinner/>;
@@ -18,7 +18,7 @@ class Orders extends Component{
             });
         }
         if(this.props.err){
-            order = <h1>Failed To Fetch Your Orders</h1>
+            order = <h1>Failed To Fetch Your Orders.Make Sure You are Sign In.</h1>
         }
         return(
             <div style={{padding: "50px 0 0 0"}}>
@@ -32,13 +32,15 @@ const mapStateToProps = state=>{
     return{
         orders: state.fetchOrder.orders,
         loading: state.fetchOrder.loading,
-        err: state.fetchOrder.err
+        err: state.fetchOrder.err,
+        token: state.auth.token,
+        userid: state.auth.userID
     };
 }
 
 const mapDispatchToProps = dispatch=>{
     return{
-        fetchOrder: ()=>{dispatch(actionCreators.FETCHING__ORDER())}
+        fetchOrder: (token,userid)=>{dispatch(actionCreators.FETCHING__ORDER(token,userid))}
     };
 }
 
